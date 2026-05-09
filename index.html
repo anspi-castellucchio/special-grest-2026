@@ -224,7 +224,7 @@
       <div class="slot"><span class="ora">12.30 – 13.00</span><span>Uscita</span></div>
       <p class="nota-evento">Nella settimana sono previste uscite presso gli impianti sportivi di Castellucchio e/o il Parco Bersaglio. Si consiglia abbigliamento comodo.</p>
     </div>
-    <p style="font-size:15px;color:var(--testo-sec);line-height:1.6;margin-bottom:22px;">
+    <p style="font-size:15px;color:var(--testo-sec);line-height:1.6;margin-bottom:16px;">
       Compila il modulo per iscrivere tuo/a figlio/a allo Special Grest 2026. Ti chiederemo il codice fiscale del/la partecipante per verificare se sono già presenti dati nel nostro archivio.
     </p>
     <div style="background:var(--blu-pallido);border-left:4px solid var(--arancio);border-radius:var(--raggio-sm);padding:14px 18px;margin-bottom:22px;font-size:15px;">
@@ -302,8 +302,18 @@
         <div class="msg-errore" id="errLuogoNasc"></div>
       </div>
       <div class="field-group">
+        <label>Cellulare partecipante</label>
+        <input type="tel" id="cellPartecipante" placeholder="+39 348 0000000">
+      </div>
+    </div>
+    <div class="row-2">
+      <div class="field-group">
         <label>Tessera sanitaria</label>
         <input type="text" id="tessera" placeholder="Numero tessera" oninput="this.value=this.value.toUpperCase()">
+      </div>
+      <div class="field-group">
+        <label>Note (allergie, intolleranze...)</label>
+        <input type="text" id="note" placeholder="es. allergia alle arachidi">
       </div>
     </div>
     <div class="field-group">
@@ -327,10 +337,6 @@
         <input type="text" id="provincia" placeholder="MN" maxlength="2" oninput="this.value=this.value.toUpperCase()">
         <div class="msg-errore" id="errProvincia"></div>
       </div>
-    </div>
-    <div class="field-group">
-      <label>Note (allergie, intolleranze, esigenze particolari)</label>
-      <input type="text" id="note" placeholder="es. allergia alle arachidi">
     </div>
     <div class="btn-wrap">
       <button class="btn btn-sec" onclick="vaiStep(1)">← Indietro</button>
@@ -534,7 +540,6 @@ function vaiStep(n) {
     d.className = "step-dot" + (i < n ? " completato" : i === n ? " attivo" : "");
   }
   window.scrollTo({ top: 0, behavior: "smooth" });
-  // Inizializza canvas firma quando si arriva allo step 5
   if (n === 5) {
     setTimeout(() => {
       initCanvas("canvasG1", "placeholderG1");
@@ -577,6 +582,8 @@ function precompila(d) {
   set("cognome",d.cognome); set("nome",d.nome); set("luogoNasc",d.luogoNasc);
   set("indirizzo",d.indirizzo); set("localita",d.localita); set("cap",d.cap);
   set("provincia",d.provincia); set("tessera",d.tessera); set("note",d.note);
+  // cell partecipante è in colonna D del DB (index 3)
+  set("cellPartecipante", d.cell);
   set("cognomeG1",d.cognomeG1); set("nomeG1",d.nomeG1); set("cellG1",d.cellG1);
   set("email",d.email); set("cognomeG2",d.cognomeG2); set("nomeG2",d.nomeG2); set("cellG2",d.cellG2);
 
@@ -698,32 +705,32 @@ async function inviaIscrizione() {
   const payload = {
     azione:"salvaIscrizione",
     dati:{
-      cf:       document.getElementById("cfInput").value.trim().toUpperCase(),
-      cognome:  document.getElementById("cognome").value.trim(),
-      nome:     document.getElementById("nome").value.trim(),
-      cell:     document.getElementById("cellG1").value.trim(),
-      email:    document.getElementById("email").value.trim(),
+      cf:               document.getElementById("cfInput").value.trim().toUpperCase(),
+      cognome:          document.getElementById("cognome").value.trim(),
+      nome:             document.getElementById("nome").value.trim(),
+      cellPartecipante: document.getElementById("cellPartecipante").value.trim(),
+      email:            document.getElementById("email").value.trim(),
       dataNasc,
-      luogoNasc:document.getElementById("luogoNasc").value.trim(),
-      indirizzo:document.getElementById("indirizzo").value.trim(),
-      localita: document.getElementById("localita").value.trim(),
-      cap:      document.getElementById("cap").value.trim(),
-      provincia:document.getElementById("provincia").value.trim(),
-      tessera:  document.getElementById("tessera").value.trim(),
-      note:     document.getElementById("note").value.trim(),
-      stato:"Minorenne",
-      cognomeG1:document.getElementById("cognomeG1").value.trim(),
-      nomeG1:   document.getElementById("nomeG1").value.trim(),
-      cellG1:   document.getElementById("cellG1").value.trim(),
-      cognomeG2:hasG2?document.getElementById("cognomeG2").value.trim():"",
-      nomeG2:   hasG2?document.getElementById("nomeG2").value.trim():"",
-      cellG2:   hasG2?document.getElementById("cellG2").value.trim():"",
-      checkComportamenti:document.getElementById("chkComportamenti").checked,
-      checkSanitario:    document.getElementById("chkSanitario").checked,
-      checkPrivacyLetta: document.getElementById("chkPrivacy").checked,
+      luogoNasc:        document.getElementById("luogoNasc").value.trim(),
+      indirizzo:        document.getElementById("indirizzo").value.trim(),
+      localita:         document.getElementById("localita").value.trim(),
+      cap:              document.getElementById("cap").value.trim(),
+      provincia:        document.getElementById("provincia").value.trim(),
+      tessera:          document.getElementById("tessera").value.trim(),
+      note:             document.getElementById("note").value.trim(),
+      stato:            "Minorenne",
+      cognomeG1:        document.getElementById("cognomeG1").value.trim(),
+      nomeG1:           document.getElementById("nomeG1").value.trim(),
+      cellG1:           document.getElementById("cellG1").value.trim(),
+      cognomeG2:        hasG2 ? document.getElementById("cognomeG2").value.trim() : "",
+      nomeG2:           hasG2 ? document.getElementById("nomeG2").value.trim() : "",
+      cellG2:           hasG2 ? document.getElementById("cellG2").value.trim() : "",
+      checkComportamenti: document.getElementById("chkComportamenti").checked,
+      checkSanitario:     document.getElementById("chkSanitario").checked,
+      checkPrivacyLetta:  document.getElementById("chkPrivacy").checked,
       consensoFoto,
-      firmaG1:document.getElementById("canvasG1").toDataURL("image/png"),
-      firmaG2:(hasG2&&!firmaVuota("canvasG2"))?document.getElementById("canvasG2").toDataURL("image/png"):"",
+      firmaG1: document.getElementById("canvasG1").toDataURL("image/png"),
+      firmaG2: (hasG2 && !firmaVuota("canvasG2")) ? document.getElementById("canvasG2").toDataURL("image/png") : "",
     }
   };
 
