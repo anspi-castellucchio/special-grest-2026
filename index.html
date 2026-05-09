@@ -562,6 +562,8 @@ async function cercaCF() {
     if (data.ok && data.trovato) {
       precompila(data.dati);
       mostraAlert("alertCF", "info", "✓ Dati trovati! Abbiamo precompilato i campi con le informazioni già presenti. Verifica e aggiorna se necessario.");
+    } else {
+      mostraAlert("alertCF", "success", "Nessun dato trovato per questo codice fiscale. Compila i campi nei passaggi successivi.");
     }
   } catch(e) { console.error(e); }
   finally { btn.textContent = "Verifica"; btn.disabled = false; }
