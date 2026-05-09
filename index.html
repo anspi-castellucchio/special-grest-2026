@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Grest 2026 – Iscrizione</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blu: #0870b7;
+    --blu-chiaro: #2a90d0;
+    --blu-scuro: #055a96;
+    --blu-pallido: #e6f3fb;
+    --arancio: #ff8427;
+    --arancio-scuro: #e06b10;
+    --verde: #2E7D32;
+    --rosso: #C62828;
+    --grigio: #F5F7FA;
+    --grigio-bordo: #DDE3EA;
+    --testo: #1A2332;
+    --testo-sec: #5A6A7E;
+    --bianco: #FFFFFF;
+    --ombra: 0 4px 20px rgba(8,112,183,0.10);
+    --raggio: 16px;
+    --raggio-sm: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: linear-gradient(135deg, #e6f3fb 0%, #F5F7FA 60%, #e6f3fb 100%);
+    min-height: 100vh;
+    color: var(--testo);
+  }
+
+  .header {
+    background: var(--bianco);
+    border-bottom: 3px solid var(--blu);
+    padding: 16px 24px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(8,112,183,0.08);
+  }
+  .header img { height: 60px; display: block; margin: 0 auto 8px; }
+  .header-intestazione { font-size: 11px; color: var(--testo-sec); line-height: 1.7; }
+
+  .container { max-width: 680px; margin: 28px auto; padding: 0 16px 60px; }
+
+  .progress-wrap {
+    background: var(--bianco); border-radius: 50px;
+    padding: 6px 8px; box-shadow: var(--ombra);
+    margin-bottom: 24px; display: flex; align-items: center; gap: 4px;
+  }
+  .step-dot { flex: 1; height: 8px; border-radius: 50px; background: var(--grigio-bordo); transition: background 0.4s; }
+  .step-dot.attivo     { background: var(--arancio); }
+  .step-dot.completato { background: var(--blu); }
+
+  .card {
+    background: var(--bianco); border-radius: var(--raggio);
+    box-shadow: var(--ombra); padding: 28px; margin-bottom: 20px;
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+
+  .card-titolo { font-family:'Nunito',sans-serif; font-size:22px; font-weight:900; color:var(--blu-scuro); margin-bottom:6px; }
+  .card-sottotitolo { font-size:14px; color:var(--testo-sec); margin-bottom:24px; line-height:1.5; }
+
+  .badge-evento {
+    background: var(--blu);
+    border-top: 4px solid var(--arancio);
+    color: var(--bianco); border-radius: var(--raggio);
+    padding: 24px; margin-bottom: 20px; text-align: center;
+  }
+  .badge-evento h1 { font-family:'Nunito',sans-serif; font-size:26px; font-weight:900; margin-bottom:4px; }
+  .badge-evento .date  { font-size:15px; opacity:0.92; margin-bottom:4px; }
+  .badge-evento .orario { font-size:13px; opacity:0.75; }
+
+  .programma { background:var(--blu-pallido); border-radius:var(--raggio-sm); padding:18px; margin-bottom:20px; }
+  .programma h3 { font-family:'Nunito',sans-serif; font-weight:800; font-size:13px; color:var(--blu-scuro); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px; }
+  .slot { display:flex; gap:12px; padding:5px 0; border-bottom:1px solid rgba(8,112,183,0.1); font-size:13px; }
+  .slot:last-child { border-bottom:none; }
+  .slot .ora { font-weight:700; color:var(--blu); min-width:110px; }
+  .nota-evento { font-size:12px; color:var(--testo-sec); font-style:italic; margin-top:10px; line-height:1.5; }
+
+  .field-group { margin-bottom:16px; }
+  .field-group label { display:block; font-size:12px; font-weight:700; color:var(--testo-sec); margin-bottom:5px; text-transform:uppercase; letter-spacing:0.4px; }
+  .field-group input,
+  .field-group select {
+    width:100%; padding:11px 14px;
+    border:2px solid var(--grigio-bordo); border-radius:var(--raggio-sm);
+    font-size:15px; font-family:'Lato',sans-serif; color:var(--testo);
+    background:var(--grigio); transition:border-color 0.2s, background 0.2s;
+    outline:none; -webkit-appearance:none; appearance:none;
+  }
+  .field-group input:focus, .field-group select:focus { border-color:var(--blu-chiaro); background:var(--bianco); }
+  .field-group input.errore { border-color:var(--rosso); }
+  .msg-errore { font-size:12px; color:var(--rosso); margin-top:4px; min-height:16px; }
+
+  .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .row-3 { display:grid; grid-template-columns:2fr 1fr 1fr; gap:12px; }
+
+  .data-wrap { display:grid; grid-template-columns:80px 1fr 90px; gap:8px; }
+  .data-wrap select { padding:11px 8px; }
+
+  .cf-wrap { position:relative; }
+  .cf-wrap input { padding-right:120px; }
+  .cf-btn {
+    position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    background:var(--arancio); color:var(--bianco); border:none;
+    border-radius:8px; padding:8px 16px; font-size:13px; font-weight:700;
+    cursor:pointer; transition:background 0.2s; white-space:nowrap;
+  }
+  .cf-btn:hover { background:var(--arancio-scuro); }
+  .cf-btn:disabled { opacity:0.6; cursor:not-allowed; }
+
+  .alert { border-radius:var(--raggio-sm); padding:12px 16px; font-size:14px; margin-bottom:18px; line-height:1.5; display:none; }
+  .alert.show-info    { display:block; background:var(--blu-pallido); color:var(--blu-scuro); border-left:4px solid var(--blu); }
+  .alert.show-success { display:block; background:#E8F5E9; color:var(--verde); border-left:4px solid var(--verde); }
+  .alert.show-error   { display:block; background:#FFEBEE; color:var(--rosso); border-left:4px solid var(--rosso); }
+
+  .sezione-label { font-family:'Nunito',sans-serif; font-weight:800; font-size:15px; color:var(--blu-scuro); margin:22px 0 14px; padding-bottom:8px; border-bottom:2px solid var(--blu-pallido); display:flex; align-items:center; gap:8px; }
+  .sezione-icona { width:26px; height:26px; background:var(--blu); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--bianco); font-size:13px; font-weight:900; flex-shrink:0; }
+
+  .clausola { background:var(--grigio); border:2px solid var(--grigio-bordo); border-radius:var(--raggio-sm); padding:16px; margin-bottom:14px; transition:border-color 0.2s, background 0.2s; }
+  .clausola.accettata { border-color:var(--verde); background:#f1f8f2; }
+  .clausola-testo { font-size:13px; line-height:1.6; color:var(--testo); margin-bottom:12px; }
+  .clausola-testo a { color:var(--blu); }
+  .clausola-testo strong { display:block; margin-bottom:6px; font-size:14px; }
+  .check-wrap { display:flex; align-items:flex-start; gap:10px; cursor:pointer; }
+  .check-wrap input[type="checkbox"] { width:20px; height:20px; min-width:20px; accent-color:var(--blu); cursor:pointer; margin-top:1px; }
+  .check-wrap span { font-size:14px; font-weight:600; line-height:1.4; }
+
+  .radio-group { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+  .radio-opt { display:flex; align-items:flex-start; gap:10px; background:var(--grigio); border:2px solid var(--grigio-bordo); border-radius:var(--raggio-sm); padding:12px 14px; cursor:pointer; transition:border-color 0.2s; }
+  .radio-opt:hover { border-color:var(--blu-chiaro); }
+  .radio-opt input[type="radio"] { width:18px; height:18px; min-width:18px; accent-color:var(--blu); margin-top:2px; }
+  .radio-opt span { font-size:13px; line-height:1.4; }
+
+  .toggle-g2 { display:flex; align-items:center; gap:10px; margin:18px 0 14px; cursor:pointer; }
+  .toggle-g2 input { accent-color:var(--blu); width:18px; height:18px; }
+  .toggle-g2 span { font-size:14px; font-weight:600; }
+
+  .firma-wrap { margin-top:18px; }
+  .firma-label { font-size:12px; font-weight:700; color:var(--testo-sec); text-transform:uppercase; letter-spacing:0.4px; margin-bottom:6px; }
+  .firma-canvas-wrap { border:2px solid var(--grigio-bordo); border-radius:var(--raggio-sm); background:var(--bianco); position:relative; touch-action:none; }
+  .firma-canvas-wrap canvas { display:block; width:100%; height:150px; cursor:crosshair; border-radius:calc(var(--raggio-sm) - 2px); }
+  .firma-placeholder { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:14px; color:#ccc; pointer-events:none; transition:opacity 0.2s; }
+  .firma-cancella { margin-top:6px; background:none; border:1px solid var(--grigio-bordo); border-radius:6px; padding:5px 12px; font-size:12px; color:var(--testo-sec); cursor:pointer; }
+  .firma-cancella:hover { border-color:var(--rosso); color:var(--rosso); }
+  .firma-nota { font-size:11px; color:var(--testo-sec); line-height:1.5; margin-top:8px; font-style:italic; }
+
+  .btn-wrap { display:flex; justify-content:space-between; align-items:center; margin-top:24px; gap:10px; }
+  .btn { padding:13px 28px; border-radius:var(--raggio-sm); font-size:15px; font-weight:700; font-family:'Nunito',sans-serif; cursor:pointer; border:none; transition:all 0.2s; }
+  .btn-primario { background:var(--arancio); color:var(--bianco); flex:1; max-width:260px; }
+  .btn-primario:hover { background:var(--arancio-scuro); transform:translateY(-1px); box-shadow:0 4px 14px rgba(255,132,39,0.35); }
+  .btn-sec { background:var(--grigio); color:var(--testo-sec); border:2px solid var(--grigio-bordo); }
+  .btn-sec:hover { border-color:var(--blu-chiaro); color:var(--blu); }
+  .btn:disabled { opacity:0.5; cursor:not-allowed; transform:none !important; }
+
+  .spinner { display:inline-block; width:16px; height:16px; border:3px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.8s linear infinite; vertical-align:middle; margin-right:6px; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  .conferma-hero { text-align:center; padding:24px 0 20px; }
+  .conferma-icona { width:72px; height:72px; background:linear-gradient(135deg,var(--verde),#43A047); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:32px; }
+  .conferma-hero h2 { font-family:'Nunito',sans-serif; font-size:24px; font-weight:900; color:var(--verde); margin-bottom:8px; }
+  .conferma-hero p { font-size:14px; color:var(--testo-sec); line-height:1.6; }
+  .info-box { background:var(--grigio); border-radius:var(--raggio-sm); padding:18px; margin-top:16px; }
+  .info-box h3 { font-family:'Nunito',sans-serif; font-weight:800; font-size:14px; color:var(--testo); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.4px; }
+  .info-box p, .info-box li { font-size:13px; color:var(--testo-sec); line-height:1.6; }
+  .info-box ul { padding-left:16px; margin-top:6px; }
+  .info-box strong { color:var(--testo); }
+  .info-box a { color:var(--blu); font-weight:600; }
+  .iban-box { background:var(--blu-pallido); border-radius:8px; padding:12px 16px; margin-top:8px; font-size:13px; }
+  .iban-box strong { display:block; color:var(--blu-scuro); font-size:11px; text-transform:uppercase; margin-bottom:2px; margin-top:6px; }
+  .iban-box strong:first-child { margin-top:0; }
+
+  @media (max-width:480px) {
+    .row-2, .row-3 { grid-template-columns:1fr; }
+    .data-wrap { grid-template-columns:70px 1fr 80px; gap:6px; }
+    .card { padding:18px; }
+    .btn-wrap { flex-direction:column-reverse; }
+    .btn-primario, .btn-sec { max-width:100%; width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="https://az-ph.com/wp-content/uploads/2026/05/ANSPI-Castellucchio-_-Logo@4x.png" alt="Logo ANSPI Castellucchio">
+  <div class="header-intestazione">
+    Associazione Santa Chiara e San Francesco ANSPI – APS ETS<br>
+    Via Roma 29 – 46014 Castellucchio MN &nbsp;|&nbsp; Tel. 0376 438106 &nbsp;|&nbsp; CF 93067410204
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="progress-wrap" id="progressBar">
+    <div class="step-dot attivo" id="dot0"></div>
+    <div class="step-dot" id="dot1"></div>
+    <div class="step-dot" id="dot2"></div>
+    <div class="step-dot" id="dot3"></div>
+    <div class="step-dot" id="dot4"></div>
+    <div class="step-dot" id="dot5"></div>
+  </div>
+
+  <!-- STEP 0: BENVENUTO -->
+  <div id="step0" class="card">
+    <div class="badge-evento">
+      <h1>Special Grest 2026</h1>
+      <div class="date">Da lunedì 15 a venerdì 19 giugno 2026</div>
+      <div class="orario">Dalle ore 7.30 alle ore 12.30</div>
+    </div>
+    <div class="programma">
+      <h3>Giornata tipo</h3>
+      <div class="slot"><span class="ora">7.30 – 9.00</span><span>Accoglienza</span></div>
+      <div class="slot"><span class="ora">9.00 – 9.30</span><span>Alzabandiera, Bans e inizio attività</span></div>
+      <div class="slot"><span class="ora">9.30 – 10.00</span><span>Momento di preghiera</span></div>
+      <div class="slot"><span class="ora">10.00 – 10.15</span><span>Merenda (da portare da casa)</span></div>
+      <div class="slot"><span class="ora">10.15 – 11.45</span><span>Attività e giochi del giorno</span></div>
+      <div class="slot"><span class="ora">11.45 – 12.15</span><span>Punteggiometro</span></div>
+      <div class="slot"><span class="ora">12.15 – 12.30</span><span>Momento conclusivo e riordino</span></div>
+      <div class="slot"><span class="ora">12.30 – 13.00</span><span>Uscita</span></div>
+      <p class="nota-evento">Nella settimana sono previste uscite presso gli impianti sportivi di Castellucchio e/o il Parco Bersaglio. Si consiglia abbigliamento comodo.</p>
+    </div>
+    <p style="font-size:14px;color:var(--testo-sec);line-height:1.6;margin-bottom:22px;">
+      Compila il modulo per iscrivere tuo/a figlio/a allo Special Grest 2026. Ti chiederemo il codice fiscale del/la partecipante per verificare se sono già presenti dati nel nostro archivio.
+    </p>
+    <div class="btn-wrap" style="justify-content:flex-end;">
+      <button class="btn btn-primario" onclick="vaiStep(1)">Inizia l'iscrizione →</button>
+    </div>
+  </div>
+
+  <!-- STEP 1: CODICE FISCALE -->
+  <div id="step1" class="card" style="display:none;">
+    <div class="card-titolo">Codice Fiscale</div>
+    <div class="card-sottotitolo">Inserisci il codice fiscale del/la partecipante per verificare se sono già presenti dati nel nostro archivio.</div>
+    <div id="alertCF" class="alert"></div>
+    <div class="field-group">
+      <label>Codice fiscale partecipante *</label>
+      <div class="cf-wrap">
+        <input type="text" id="cfInput" placeholder="es. RSSMRA10A01E897X" maxlength="16"
+               autocomplete="off" oninput="this.value=this.value.toUpperCase()"
+               onkeydown="if(event.key==='Enter') cercaCF()">
+        <button class="cf-btn" id="cfBtn" onclick="cercaCF()">Verifica</button>
+      </div>
+      <div class="msg-errore" id="errCF"></div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn btn-sec" onclick="vaiStep(0)">← Indietro</button>
+      <button class="btn btn-primario" onclick="validaStep1()">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: DATI PARTECIPANTE -->
+  <div id="step2" class="card" style="display:none;">
+    <div class="card-titolo">Dati del Partecipante</div>
+    <div class="card-sottotitolo">Verifica e completa i dati del/la ragazzo/a.</div>
+    <div class="row-2">
+      <div class="field-group">
+        <label>Cognome *</label>
+        <input type="text" id="cognome" placeholder="Rossi">
+        <div class="msg-errore" id="errCognome"></div>
+      </div>
+      <div class="field-group">
+        <label>Nome *</label>
+        <input type="text" id="nome" placeholder="Mario">
+        <div class="msg-errore" id="errNome"></div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Data di nascita *</label>
+      <div class="data-wrap">
+        <select id="nascGiorno">
+          <option value="">GG</option>
+          <script>for(let g=1;g<=31;g++){let v=String(g).padStart(2,'0');document.write(`<option value="${v}">${v}</option>`);}</script>
+        </select>
+        <select id="nascMese">
+          <option value="">Mese</option>
+          <option value="01">Gennaio</option><option value="02">Febbraio</option>
+          <option value="03">Marzo</option><option value="04">Aprile</option>
+          <option value="05">Maggio</option><option value="06">Giugno</option>
+          <option value="07">Luglio</option><option value="08">Agosto</option>
+          <option value="09">Settembre</option><option value="10">Ottobre</option>
+          <option value="11">Novembre</option><option value="12">Dicembre</option>
+        </select>
+        <select id="nascAnno">
+          <option value="">Anno</option>
+          <script>for(let a=2024;a>=1930;a--){document.write(`<option value="${a}">${a}</option>`);}</script>
+        </select>
+      </div>
+      <div class="msg-errore" id="errDataNasc"></div>
+    </div>
+    <div class="row-2">
+      <div class="field-group">
+        <label>Luogo di nascita *</label>
+        <input type="text" id="luogoNasc" placeholder="Mantova">
+        <div class="msg-errore" id="errLuogoNasc"></div>
+      </div>
+      <div class="field-group">
+        <label>Tessera sanitaria</label>
+        <input type="text" id="tessera" placeholder="Numero tessera" oninput="this.value=this.value.toUpperCase()">
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Indirizzo di residenza *</label>
+      <input type="text" id="indirizzo" placeholder="Via Roma 1">
+      <div class="msg-errore" id="errIndirizzo"></div>
+    </div>
+    <div class="row-3">
+      <div class="field-group">
+        <label>Città *</label>
+        <input type="text" id="localita" placeholder="Castellucchio">
+        <div class="msg-errore" id="errLocalita"></div>
+      </div>
+      <div class="field-group">
+        <label>CAP *</label>
+        <input type="text" id="cap" placeholder="46014" maxlength="5">
+        <div class="msg-errore" id="errCap"></div>
+      </div>
+      <div class="field-group">
+        <label>Prov. *</label>
+        <input type="text" id="provincia" placeholder="MN" maxlength="2" oninput="this.value=this.value.toUpperCase()">
+        <div class="msg-errore" id="errProvincia"></div>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Note (allergie, intolleranze, esigenze particolari)</label>
+      <input type="text" id="note" placeholder="es. allergia alle arachidi">
+    </div>
+    <div class="btn-wrap">
+      <button class="btn btn-sec" onclick="vaiStep(1)">← Indietro</button>
+      <button class="btn btn-primario" onclick="validaStep2()">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: DATI GENITORI -->
+  <div id="step3" class="card" style="display:none;">
+    <div class="card-titolo">Dati dei Genitori</div>
+    <div class="card-sottotitolo">Inserisci i dati del genitore/tutore/affidatario e i contatti per le comunicazioni.</div>
+    <div class="sezione-label"><div class="sezione-icona">1</div>Genitore / Tutore / Affidatario</div>
+    <div class="row-2">
+      <div class="field-group">
+        <label>Cognome *</label>
+        <input type="text" id="cognomeG1" placeholder="Rossi">
+        <div class="msg-errore" id="errCognomeG1"></div>
+      </div>
+      <div class="field-group">
+        <label>Nome *</label>
+        <input type="text" id="nomeG1" placeholder="Giuseppe">
+        <div class="msg-errore" id="errNomeG1"></div>
+      </div>
+    </div>
+    <div class="row-2">
+      <div class="field-group">
+        <label>Cellulare *</label>
+        <input type="tel" id="cellG1" placeholder="+39 348 0000000">
+        <div class="msg-errore" id="errCellG1"></div>
+      </div>
+      <div class="field-group">
+        <label>Email *</label>
+        <input type="email" id="email" placeholder="mario@email.it">
+        <div class="msg-errore" id="errEmail"></div>
+      </div>
+    </div>
+    <label class="toggle-g2">
+      <input type="checkbox" id="toggleG2" onchange="toggleGenitore2()">
+      <span>Aggiungi secondo genitore / tutore</span>
+    </label>
+    <div id="bloccoG2" style="display:none;">
+      <div class="sezione-label"><div class="sezione-icona">2</div>Secondo Genitore / Tutore (opzionale)</div>
+      <div class="row-2">
+        <div class="field-group"><label>Cognome</label><input type="text" id="cognomeG2" placeholder="Rossi"></div>
+        <div class="field-group"><label>Nome</label><input type="text" id="nomeG2" placeholder="Anna"></div>
+      </div>
+      <div class="field-group"><label>Cellulare</label><input type="tel" id="cellG2" placeholder="+39 347 0000000"></div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn btn-sec" onclick="vaiStep(2)">← Indietro</button>
+      <button class="btn btn-primario" onclick="validaStep3()">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: AUTORIZZAZIONI -->
+  <div id="step4" class="card" style="display:none;">
+    <div class="card-titolo">Autorizzazioni e Privacy</div>
+    <div class="card-sottotitolo">Leggi e accetta le seguenti autorizzazioni per completare l'iscrizione.</div>
+
+    <div class="clausola" id="cl1">
+      <div class="clausola-testo">
+        <strong>Comportamenti inammissibili</strong>
+        Autorizzo gli organizzatori ad interrompere la partecipazione di nostro/a figlio/a alla suddetta proposta qualora questo provvedimento sia ritenuto necessario per custodire il significato educativo dell'attività e degli spazi o per evitare che siano ripetuti comportamenti inammissibili.
+      </div>
+      <label class="check-wrap">
+        <input type="checkbox" id="chkComportamenti" onchange="aggiornaCl('cl1',this)">
+        <span>Accetto e autorizzo</span>
+      </label>
+      <div class="msg-errore" id="errComportamenti"></div>
+    </div>
+
+    <div class="clausola" id="cl2">
+      <div class="clausola-testo">
+        <strong>Interventi di carattere sanitario</strong>
+        Autorizzo gli organizzatori, in caso di necessità, a chiedere l'intervento del Servizio Sanitario e/o accompagnare il/la ragazzo/a presso il Pronto Soccorso (contemporaneamente i responsabili e i loro collaboratori si attiveranno per avvisare almeno un genitore utilizzando il numero di telefono di reperibilità) e al successivo riaffidamento del ragazzo/ragazza agli organizzatori, nella persona del Responsabile dell'Oratorio e dei suoi collaboratori.
+      </div>
+      <label class="check-wrap">
+        <input type="checkbox" id="chkSanitario" onchange="aggiornaCl('cl2',this)">
+        <span>Accetto e autorizzo</span>
+      </label>
+      <div class="msg-errore" id="errSanitario"></div>
+    </div>
+
+    <div class="clausola" id="cl3">
+      <div class="clausola-testo">
+        <strong>Informativa ai fini privacy e riservatezza</strong>
+        Dichiariamo di aver letto l'<a href="https://az-ph.com/wp-content/uploads/2025/04/ANSPI-_-informativa-privacy.pdf" target="_blank">Informativa ai fini privacy</a> secondo quanto previsto dal Regolamento UE 679/2016.
+      </div>
+      <label class="check-wrap">
+        <input type="checkbox" id="chkPrivacy" onchange="aggiornaCl('cl3',this)">
+        <span>Dichiariamo di aver letto l'informativa ai fini privacy</span>
+      </label>
+      <div class="msg-errore" id="errPrivacy"></div>
+    </div>
+
+    <div class="clausola" id="cl4">
+      <div class="clausola-testo">
+        <strong>Consenso ai fini privacy – Foto e video</strong>
+        Relativamente al trattamento di foto e video secondo quanto descritto dall'Informativa privacy:
+      </div>
+      <div class="radio-group">
+        <label class="radio-opt">
+          <input type="radio" name="consensoFoto" value="Sì, prestiamo il consenso al trattamento di foto e video secondo quanto descritto dall'Informativa privacy">
+          <span>Sì, prestiamo il consenso al trattamento di foto e video</span>
+        </label>
+        <label class="radio-opt">
+          <input type="radio" name="consensoFoto" value="No, neghiamo il consenso al trattamento di foto e video secondo quanto descritto dall'Informativa privacy">
+          <span>No, neghiamo il consenso al trattamento di foto e video</span>
+        </label>
+      </div>
+      <div class="msg-errore" id="errFoto"></div>
+    </div>
+
+    <div class="btn-wrap">
+      <button class="btn btn-sec" onclick="vaiStep(3)">← Indietro</button>
+      <button class="btn btn-primario" onclick="validaStep4()">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- STEP 5: FIRME -->
+  <div id="step5" class="card" style="display:none;">
+    <div class="card-titolo">Firme</div>
+    <div class="card-sottotitolo">Firma digitalmente per completare l'iscrizione.</div>
+
+    <div class="firma-wrap">
+      <div class="firma-label" id="labelFirmaG1">Firma Genitore / Tutore / Affidatario *</div>
+      <div class="firma-canvas-wrap">
+        <canvas id="canvasG1"></canvas>
+        <div class="firma-placeholder" id="placeholderG1">Firma qui con il dito o il mouse</div>
+      </div>
+      <button class="firma-cancella" onclick="cancellaFirma('canvasG1','placeholderG1')">✕ Cancella</button>
+      <div class="msg-errore" id="errFirmaG1"></div>
+      <p class="firma-nota">In caso di firma di un solo genitore, il firmatario, in qualità di Genitore, o di chi ne esercita la responsabilità genitoriale, consapevole delle conseguenze amministrative e penali per chi rilasci dichiarazioni non corrispondenti a verità, ai sensi del DPR 245/2000, dichiara di aver effettuato la scelta/richiesta in osservanza delle disposizioni sulla responsabilità genitoriale di cui agli artt. 316, 337 ter e 337 quater del codice civile, che richiedono il consenso di entrambi i genitori.</p>
+    </div>
+
+    <div id="firmaG2Wrap" style="display:none;">
+      <div class="firma-wrap" style="margin-top:24px;">
+        <div class="firma-label" id="labelFirmaG2">Firma Secondo Genitore / Tutore (opzionale)</div>
+        <div class="firma-canvas-wrap">
+          <canvas id="canvasG2"></canvas>
+          <div class="firma-placeholder" id="placeholderG2">Firma qui con il dito o il mouse</div>
+        </div>
+        <button class="firma-cancella" onclick="cancellaFirma('canvasG2','placeholderG2')">✕ Cancella</button>
+      </div>
+    </div>
+
+    <div id="alertInvio" class="alert"></div>
+
+    <div class="btn-wrap">
+      <button class="btn btn-sec" onclick="vaiStep(4)">← Indietro</button>
+      <button class="btn btn-primario" id="btnInvia" onclick="inviaIscrizione()">Invia iscrizione ✓</button>
+    </div>
+  </div>
+
+  <!-- STEP 6: CONFERMA -->
+  <div id="step6" class="card" style="display:none;">
+    <div class="conferma-hero">
+      <div class="conferma-icona">✓</div>
+      <h2>Iscrizione completata!</h2>
+      <p>L'iscrizione di <strong id="nomeConferma"></strong> allo Special Grest 2026 è stata registrata con successo.<br>Riceverai a breve una email di conferma all'indirizzo indicato.</p>
+    </div>
+    <div class="info-box">
+      <h3>💰 Pagamento</h3>
+      <p>La quota di partecipazione è di <strong>€10,00</strong>.</p>
+      <p style="margin-top:8px;">Puoi pagare:</p>
+      <ul>
+        <li>
+          <strong>Tramite bonifico bancario</strong>
+          <div class="iban-box">
+            <strong>Intestato a</strong>Circolo ANSPI Santa Chiara e San Francesco
+            <strong>IBAN</strong>IT40P0834057560000000360432
+            <strong>Causale</strong><span id="causaleConferma"></span>
+          </div>
+          <p style="margin-top:6px;font-size:12px;">Puoi bonificare insieme la quota di iscrizione e il costo del tesseramento ANSPI.</p>
+        </li>
+        <li style="margin-top:8px;"><strong>In contanti</strong> il primo giorno di attività</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <h3>🪪 Tesseramento ANSPI</h3>
+      <p>Per partecipare è necessario essere tesserati ANSPI. Se non l'hai ancora fatto, puoi richiedere la tessera compilando il <a href="https://tally.so/r/WOR6ve" target="_blank">modulo di tesseramento</a>.</p>
+    </div>
+    <div class="info-box" style="text-align:center;">
+      <p style="font-size:12px;">Per informazioni: <a href="mailto:oratoriocastellucchio5@gmail.com">oratoriocastellucchio5@gmail.com</a><br>Tel. 0376 438106 &nbsp;|&nbsp; Via Roma 29, Castellucchio MN</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbz-P6FdaweiXTaVXwjCyKz3RYlUnz5akGDvGpsfMqWUPRnJvXBne4aZxWZuLi_qhyMxkg/exec";
+let stepCorrente = 0;
+
+function vaiStep(n) {
+  document.getElementById("step" + stepCorrente).style.display = "none";
+  stepCorrente = n;
+  document.getElementById("step" + stepCorrente).style.display = "block";
+  for (let i = 0; i <= 5; i++) {
+    const d = document.getElementById("dot" + i);
+    if (!d) continue;
+    d.className = "step-dot" + (i < n ? " completato" : i === n ? " attivo" : "");
+  }
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function mostraAlert(id, tipo, testo) {
+  const el = document.getElementById(id);
+  el.className = "alert show-" + tipo;
+  el.textContent = testo;
+}
+function nascondiAlert(id) {
+  document.getElementById(id).className = "alert";
+}
+
+async function cercaCF() {
+  const cf = document.getElementById("cfInput").value.trim().toUpperCase();
+  document.getElementById("errCF").textContent = "";
+  nascondiAlert("alertCF");
+  if (!cf || cf.length !== 16) { document.getElementById("errCF").textContent = "Inserisci un codice fiscale valido (16 caratteri)"; return; }
+  const btn = document.getElementById("cfBtn");
+  btn.textContent = "Ricerca..."; btn.disabled = true;
+  try {
+    const res  = await fetch(WEBAPP_URL, { method:"POST", body:JSON.stringify({ azione:"cercaCF", cf }) });
+    const data = await res.json();
+    if (data.ok && data.trovato) {
+      precompila(data.dati);
+      mostraAlert("alertCF", "info", "✓ Dati trovati! Abbiamo precompilato i campi con le informazioni già presenti. Verifica e aggiorna se necessario.");
+    }
+  } catch(e) { console.error(e); }
+  finally { btn.textContent = "Verifica"; btn.disabled = false; }
+}
+
+function precompila(d) {
+  console.log("dataNasc ricevuta:", d.dataNasc, typeof d.dataNasc);
+  const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+  set("cognome",d.cognome); set("nome",d.nome); set("luogoNasc",d.luogoNasc);
+  set("indirizzo",d.indirizzo); set("localita",d.localita); set("cap",d.cap);
+  set("provincia",d.provincia); set("tessera",d.tessera); set("note",d.note);
+  set("cognomeG1",d.cognomeG1); set("nomeG1",d.nomeG1); set("cellG1",d.cellG1);
+  set("email",d.email); set("cognomeG2",d.cognomeG2); set("nomeG2",d.nomeG2); set("cellG2",d.cellG2);
+
+  // Data nascita: gestisce dd/mm/yyyy, d/m/yyyy, yyyy-mm-dd
+  if (d.dataNasc) {
+    const s = d.dataNasc.toString().trim();
+    let gg, mm, aa;
+    const m1 = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    const m2 = s.match(/^(\d{4})-(\d{2})-(\d{2})/); // gestisce anche ISO con orario
+    if (m1) { gg = m1[1].padStart(2,"0"); mm = m1[2].padStart(2,"0"); aa = m1[3]; }
+    else if (m2) { gg = m2[3]; mm = m2[2]; aa = m2[1]; }
+    if (gg) {
+      const sg = document.getElementById("nascGiorno");
+      const sm = document.getElementById("nascMese");
+      const sa = document.getElementById("nascAnno");
+      if (sg) sg.value = gg;
+      if (sm) sm.value = mm;
+      if (sa) sa.value = aa;
+    }
+  }
+
+  if (d.cognomeG2 || d.nomeG2 || d.cellG2) {
+    document.getElementById("toggleG2").checked = true;
+    toggleGenitore2();
+  }
+  if (d.nomeG1) document.getElementById("labelFirmaG1").textContent = `Firma di ${d.nomeG1} *`;
+}
+
+function toggleGenitore2() {
+  const m = document.getElementById("toggleG2").checked;
+  document.getElementById("bloccoG2").style.display    = m ? "block" : "none";
+  document.getElementById("firmaG2Wrap").style.display = m ? "block" : "none";
+}
+
+function validaStep1() {
+  const cf = document.getElementById("cfInput").value.trim();
+  if (!cf || cf.length !== 16) { document.getElementById("errCF").textContent = "Inserisci un codice fiscale valido (16 caratteri)"; return; }
+  document.getElementById("errCF").textContent = "";
+  vaiStep(2);
+}
+
+function validaStep2() {
+  let ok = true;
+  [["cognome","errCognome","Cognome"],["nome","errNome","Nome"],["luogoNasc","errLuogoNasc","Luogo di nascita"],
+   ["indirizzo","errIndirizzo","Indirizzo"],["localita","errLocalita","Città"],["cap","errCap","CAP"],["provincia","errProvincia","Provincia"]
+  ].forEach(([id,err,label]) => {
+    const el = document.getElementById(id), er = document.getElementById(err);
+    if (!el.value.trim()) { er.textContent = `${label} obbligatorio`; el.classList.add("errore"); ok=false; }
+    else { er.textContent=""; el.classList.remove("errore"); }
+  });
+  const g=document.getElementById("nascGiorno").value, m=document.getElementById("nascMese").value, a=document.getElementById("nascAnno").value;
+  const erD=document.getElementById("errDataNasc");
+  if (!g||!m||!a) { erD.textContent="Data di nascita obbligatoria"; ok=false; } else erD.textContent="";
+  if (ok) vaiStep(3);
+}
+
+function validaStep3() {
+  let ok = true;
+  [["cognomeG1","errCognomeG1","Cognome"],["nomeG1","errNomeG1","Nome"],["cellG1","errCellG1","Cellulare"],["email","errEmail","Email"]
+  ].forEach(([id,err,label]) => {
+    const el=document.getElementById(id), er=document.getElementById(err);
+    if (!el.value.trim()) { er.textContent=`${label} obbligatorio`; el.classList.add("errore"); ok=false; }
+    else { er.textContent=""; el.classList.remove("errore"); }
+  });
+  if (ok) vaiStep(4);
+}
+
+function validaStep4() {
+  let ok = true;
+  [["chkComportamenti","errComportamenti"],["chkSanitario","errSanitario"],["chkPrivacy","errPrivacy"]].forEach(([id,err]) => {
+    const el=document.getElementById(id), er=document.getElementById(err);
+    if (!el.checked) { er.textContent="Autorizzazione obbligatoria"; ok=false; } else er.textContent="";
+  });
+  const foto=document.querySelector('input[name="consensoFoto"]:checked'), erF=document.getElementById("errFoto");
+  if (!foto) { erF.textContent="Seleziona un'opzione"; ok=false; } else erF.textContent="";
+  if (ok) vaiStep(5);
+}
+
+function aggiornaCl(id, el) { document.getElementById(id).classList.toggle("accettata", el.checked); }
+
+function initCanvas(id, phId) {
+  const canvas=document.getElementById(id); if (!canvas) return;
+  const ctx=canvas.getContext("2d"), ph=document.getElementById(phId);
+  let disegno=false;
+  function resize() {
+    const r=canvas.getBoundingClientRect(), dpr=window.devicePixelRatio||1;
+    canvas.width=r.width*dpr; canvas.height=r.height*dpr;
+    ctx.scale(dpr,dpr); ctx.strokeStyle="#1A2332"; ctx.lineWidth=2.5; ctx.lineCap="round"; ctx.lineJoin="round";
+  }
+  setTimeout(resize, 100);
+  function p(e) { const r=canvas.getBoundingClientRect(),s=e.touches?e.touches[0]:e; return {x:s.clientX-r.left,y:s.clientY-r.top}; }
+  canvas.addEventListener("mousedown",  e=>{disegno=true;const q=p(e);ctx.beginPath();ctx.moveTo(q.x,q.y);});
+  canvas.addEventListener("mousemove",  e=>{if(!disegno)return;const q=p(e);ctx.lineTo(q.x,q.y);ctx.stroke();ph.style.opacity="0";});
+  canvas.addEventListener("mouseup",    ()=>disegno=false);
+  canvas.addEventListener("mouseleave", ()=>disegno=false);
+  canvas.addEventListener("touchstart", e=>{e.preventDefault();disegno=true;const q=p(e);ctx.beginPath();ctx.moveTo(q.x,q.y);},{passive:false});
+  canvas.addEventListener("touchmove",  e=>{e.preventDefault();if(!disegno)return;const q=p(e);ctx.lineTo(q.x,q.y);ctx.stroke();ph.style.opacity="0";},{passive:false});
+  canvas.addEventListener("touchend",   ()=>disegno=false);
+}
+
+function cancellaFirma(id,phId) {
+  const c=document.getElementById(id); c.getContext("2d").clearRect(0,0,c.width,c.height);
+  document.getElementById(phId).style.opacity="1";
+}
+function firmaVuota(id) {
+  const c=document.getElementById(id); return !c.getContext("2d").getImageData(0,0,c.width,c.height).data.some(v=>v!==0);
+}
+
+async function inviaIscrizione() {
+  const errF1=document.getElementById("errFirmaG1"), btn=document.getElementById("btnInvia");
+  errF1.textContent=""; nascondiAlert("alertInvio");
+  if (firmaVuota("canvasG1")) { errF1.textContent="La firma è obbligatoria"; return; }
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Invio in corso...';
+
+  const g=document.getElementById("nascGiorno").value, m=document.getElementById("nascMese").value, a=document.getElementById("nascAnno").value;
+  const dataNasc=(g&&m&&a)?`${g}/${m}/${a}`:"";
+  const hasG2=document.getElementById("toggleG2").checked;
+  const consensoFoto=document.querySelector('input[name="consensoFoto"]:checked')?.value||"";
+
+  const payload = {
+    azione:"salvaIscrizione",
+    dati:{
+      cf:       document.getElementById("cfInput").value.trim().toUpperCase(),
+      cognome:  document.getElementById("cognome").value.trim(),
+      nome:     document.getElementById("nome").value.trim(),
+      cell:     document.getElementById("cellG1").value.trim(),
+      email:    document.getElementById("email").value.trim(),
+      dataNasc,
+      luogoNasc:document.getElementById("luogoNasc").value.trim(),
+      indirizzo:document.getElementById("indirizzo").value.trim(),
+      localita: document.getElementById("localita").value.trim(),
+      cap:      document.getElementById("cap").value.trim(),
+      provincia:document.getElementById("provincia").value.trim(),
+      tessera:  document.getElementById("tessera").value.trim(),
+      note:     document.getElementById("note").value.trim(),
+      stato:"Minorenne",
+      cognomeG1:document.getElementById("cognomeG1").value.trim(),
+      nomeG1:   document.getElementById("nomeG1").value.trim(),
+      cellG1:   document.getElementById("cellG1").value.trim(),
+      cognomeG2:hasG2?document.getElementById("cognomeG2").value.trim():"",
+      nomeG2:   hasG2?document.getElementById("nomeG2").value.trim():"",
+      cellG2:   hasG2?document.getElementById("cellG2").value.trim():"",
+      checkComportamenti:document.getElementById("chkComportamenti").checked,
+      checkSanitario:    document.getElementById("chkSanitario").checked,
+      checkPrivacyLetta: document.getElementById("chkPrivacy").checked,
+      consensoFoto,
+      firmaG1:document.getElementById("canvasG1").toDataURL("image/png"),
+      firmaG2:(hasG2&&!firmaVuota("canvasG2"))?document.getElementById("canvasG2").toDataURL("image/png"):"",
+    }
+  };
+
+  try {
+    const res=await fetch(WEBAPP_URL,{method:"POST",body:JSON.stringify(payload)});
+    const data=await res.json();
+    if (data.ok) {
+      document.getElementById("nomeConferma").textContent=`${payload.dati.nome} ${payload.dati.cognome}`;
+      document.getElementById("causaleConferma").textContent=`Special Grest ${payload.dati.cognome} ${payload.dati.nome}`;
+      document.getElementById("progressBar").style.display="none";
+      vaiStep(6);
+    } else {
+      mostraAlert("alertInvio","error","Errore: "+(data.errore||"riprova più tardi"));
+      btn.disabled=false; btn.textContent="Invia iscrizione ✓";
+    }
+  } catch(e) {
+    mostraAlert("alertInvio","error","Errore di connessione. Riprova tra qualche istante.");
+    btn.disabled=false; btn.textContent="Invia iscrizione ✓";
+  }
+}
+
+window.addEventListener("load", () => {
+  initCanvas("canvasG1","placeholderG1");
+  initCanvas("canvasG2","placeholderG2");
+  document.getElementById("nomeG1").addEventListener("input", function() {
+    document.getElementById("labelFirmaG1").textContent = this.value.trim() ? `Firma di ${this.value.trim()} *` : "Firma Genitore / Tutore / Affidatario *";
+  });
+  document.getElementById("nomeG2").addEventListener("input", function() {
+    document.getElementById("labelFirmaG2").textContent = this.value.trim() ? `Firma di ${this.value.trim()} (opzionale)` : "Firma Secondo Genitore / Tutore (opzionale)";
+  });
+});
+</script>
+</body>
+</html>
