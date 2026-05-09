@@ -302,14 +302,15 @@
         <div class="msg-errore" id="errLuogoNasc"></div>
       </div>
       <div class="field-group">
-        <label>Cellulare partecipante</label>
+        <label>Cellulare partecipante (facoltativo)</label>
         <input type="tel" id="cellPartecipante" placeholder="+39 348 0000000">
       </div>
     </div>
     <div class="row-2">
       <div class="field-group">
-        <label>Tessera sanitaria</label>
+        <label>Tessera sanitaria *</label>
         <input type="text" id="tessera" placeholder="Numero tessera" oninput="this.value=this.value.toUpperCase()">
+        <div class="msg-errore" id="errTessera"></div>
       </div>
       <div class="field-group">
         <label>Note (allergie, intolleranze...)</label>
@@ -627,6 +628,7 @@ function validaStep1() {
 function validaStep2() {
   let ok = true;
   [["cognome","errCognome","Cognome"],["nome","errNome","Nome"],["luogoNasc","errLuogoNasc","Luogo di nascita"],
+   ["tessera","errTessera","Tessera sanitaria"],
    ["indirizzo","errIndirizzo","Indirizzo"],["localita","errLocalita","Città"],["cap","errCap","CAP"],["provincia","errProvincia","Provincia"]
   ].forEach(([id,err,label]) => {
     const el = document.getElementById(id), er = document.getElementById(err);
