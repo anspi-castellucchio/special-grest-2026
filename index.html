@@ -531,6 +531,13 @@ function vaiStep(n) {
     d.className = "step-dot" + (i < n ? " completato" : i === n ? " attivo" : "");
   }
   window.scrollTo({ top: 0, behavior: "smooth" });
+  // Inizializza canvas firma quando si arriva allo step 5
+  if (n === 5) {
+    setTimeout(() => {
+      initCanvas("canvasG1", "placeholderG1");
+      initCanvas("canvasG2", "placeholderG2");
+    }, 200);
+  }
 }
 
 function mostraAlert(id, tipo, testo) {
@@ -653,7 +660,7 @@ function initCanvas(id, phId) {
     canvas.width=r.width*dpr; canvas.height=r.height*dpr;
     ctx.scale(dpr,dpr); ctx.strokeStyle="#1A2332"; ctx.lineWidth=2.5; ctx.lineCap="round"; ctx.lineJoin="round";
   }
-  setTimeout(resize, 100);
+  resize();
   function p(e) { const r=canvas.getBoundingClientRect(),s=e.touches?e.touches[0]:e; return {x:s.clientX-r.left,y:s.clientY-r.top}; }
   canvas.addEventListener("mousedown",  e=>{disegno=true;const q=p(e);ctx.beginPath();ctx.moveTo(q.x,q.y);});
   canvas.addEventListener("mousemove",  e=>{if(!disegno)return;const q=p(e);ctx.lineTo(q.x,q.y);ctx.stroke();ph.style.opacity="0";});
@@ -734,8 +741,6 @@ async function inviaIscrizione() {
 }
 
 window.addEventListener("load", () => {
-  initCanvas("canvasG1","placeholderG1");
-  initCanvas("canvasG2","placeholderG2");
   document.getElementById("nomeG1").addEventListener("input", function() {
     document.getElementById("labelFirmaG1").textContent = this.value.trim() ? `Firma di ${this.value.trim()} *` : "Firma Genitore / Tutore / Affidatario *";
   });
