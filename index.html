@@ -162,8 +162,8 @@
   @keyframes spin { to { transform:rotate(360deg); } }
 
   .conferma-hero { text-align:center; padding:24px 0 20px; }
-  .conferma-icona { width:72px; height:72px; background:linear-gradient(135deg,var(--verde),#43A047); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:32px; }
-  .conferma-hero h2 { font-family:'Nunito',sans-serif; font-size:26px; font-weight:900; color:var(--verde); margin-bottom:8px; }
+  .conferma-icona { width:72px; height:72px; background:linear-gradient(135deg,var(--blu-scuro),var(--blu)); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:32px; color:#ffffff; }
+  .conferma-hero h2 { font-family:'Nunito',sans-serif; font-size:26px; font-weight:900; color:var(--blu-scuro); margin-bottom:8px; }
   .conferma-hero p { font-size:15px; color:var(--testo-sec); line-height:1.6; }
   .info-box { background:var(--grigio); border-radius:var(--raggio-sm); padding:18px; margin-top:16px; }
   .info-box h3 { font-family:'Nunito',sans-serif; font-weight:800; font-size:15px; color:var(--testo); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.4px; }
@@ -495,7 +495,7 @@
   <!-- STEP 6: CONFERMA -->
   <div id="step6" class="card" style="display:none;">
     <div class="conferma-hero">
-      <div class="conferma-icona">✓</div>
+      <div class="conferma-icona" style="background:linear-gradient(135deg,var(--blu-scuro),var(--blu));">✓</div>
       <h2>Iscrizione completata!</h2>
       <p>L'iscrizione di <strong id="nomeConferma"></strong> allo Special Grest 2026 è stata registrata con successo.<br>Riceverai a breve una email di conferma all'indirizzo indicato.</p>
     </div>
