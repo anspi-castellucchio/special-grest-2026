@@ -29,6 +29,7 @@
 
   body {
     font-family: 'Lato', sans-serif;
+    font-size: 16px;
     background: linear-gradient(135deg, #e6f3fb 0%, #F5F7FA 60%, #e6f3fb 100%);
     min-height: 100vh;
     color: var(--testo);
@@ -42,7 +43,7 @@
     box-shadow: 0 2px 8px rgba(8,112,183,0.08);
   }
   .header img { height: 60px; display: block; margin: 0 auto 8px; }
-  .header-intestazione { font-size: 11px; color: var(--testo-sec); line-height: 1.7; }
+  .header-intestazione { font-size: 12px; color: var(--testo-sec); line-height: 1.7; }
 
   .container { max-width: 680px; margin: 28px auto; padding: 0 16px 60px; }
 
@@ -62,8 +63,8 @@
   }
   @keyframes slideIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
 
-  .card-titolo { font-family:'Nunito',sans-serif; font-size:22px; font-weight:900; color:var(--blu-scuro); margin-bottom:6px; }
-  .card-sottotitolo { font-size:14px; color:var(--testo-sec); margin-bottom:24px; line-height:1.5; }
+  .card-titolo { font-family:'Nunito',sans-serif; font-size:24px; font-weight:900; color:var(--blu-scuro); margin-bottom:6px; }
+  .card-sottotitolo { font-size:15px; color:var(--testo-sec); margin-bottom:24px; line-height:1.5; }
 
   .badge-evento {
     background: var(--blu);
@@ -71,86 +72,86 @@
     color: var(--bianco); border-radius: var(--raggio);
     padding: 24px; margin-bottom: 20px; text-align: center;
   }
-  .badge-evento h1 { font-family:'Nunito',sans-serif; font-size:26px; font-weight:900; margin-bottom:4px; }
-  .badge-evento .date  { font-size:15px; opacity:0.92; margin-bottom:4px; }
-  .badge-evento .orario { font-size:13px; opacity:0.75; }
+  .badge-evento h1 { font-family:'Nunito',sans-serif; font-size:28px; font-weight:900; margin-bottom:4px; }
+  .badge-evento .date  { font-size:17px; opacity:0.92; margin-bottom:4px; }
+  .badge-evento .orario { font-size:15px; opacity:0.75; }
 
   .programma { background:var(--blu-pallido); border-radius:var(--raggio-sm); padding:18px; margin-bottom:20px; }
-  .programma h3 { font-family:'Nunito',sans-serif; font-weight:800; font-size:13px; color:var(--blu-scuro); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px; }
-  .slot { display:flex; gap:12px; padding:5px 0; border-bottom:1px solid rgba(8,112,183,0.1); font-size:13px; }
+  .programma h3 { font-family:'Nunito',sans-serif; font-weight:800; font-size:14px; color:var(--blu-scuro); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px; }
+  .slot { display:flex; gap:12px; padding:6px 0; border-bottom:1px solid rgba(8,112,183,0.1); font-size:14px; }
   .slot:last-child { border-bottom:none; }
   .slot .ora { font-weight:700; color:var(--blu); min-width:110px; }
-  .nota-evento { font-size:12px; color:var(--testo-sec); font-style:italic; margin-top:10px; line-height:1.5; }
+  .nota-evento { font-size:13px; color:var(--testo-sec); font-style:italic; margin-top:10px; line-height:1.5; }
 
   .field-group { margin-bottom:16px; }
-  .field-group label { display:block; font-size:12px; font-weight:700; color:var(--testo-sec); margin-bottom:5px; text-transform:uppercase; letter-spacing:0.4px; }
+  .field-group label { display:block; font-size:13px; font-weight:700; color:var(--testo-sec); margin-bottom:5px; text-transform:uppercase; letter-spacing:0.4px; }
   .field-group input,
   .field-group select {
-    width:100%; padding:11px 14px;
+    width:100%; padding:12px 14px;
     border:2px solid var(--grigio-bordo); border-radius:var(--raggio-sm);
-    font-size:15px; font-family:'Lato',sans-serif; color:var(--testo);
+    font-size:16px; font-family:'Lato',sans-serif; color:var(--testo);
     background:var(--grigio); transition:border-color 0.2s, background 0.2s;
     outline:none; -webkit-appearance:none; appearance:none;
   }
   .field-group input:focus, .field-group select:focus { border-color:var(--blu-chiaro); background:var(--bianco); }
   .field-group input.errore { border-color:var(--rosso); }
-  .msg-errore { font-size:12px; color:var(--rosso); margin-top:4px; min-height:16px; }
+  .msg-errore { font-size:13px; color:var(--rosso); margin-top:4px; min-height:16px; }
 
   .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .row-3 { display:grid; grid-template-columns:2fr 1fr 1fr; gap:12px; }
 
   .data-wrap { display:grid; grid-template-columns:80px 1fr 90px; gap:8px; }
-  .data-wrap select { padding:11px 8px; }
+  .data-wrap select { padding:12px 8px; }
 
   .cf-wrap { position:relative; }
   .cf-wrap input { padding-right:120px; }
   .cf-btn {
     position:absolute; right:6px; top:50%; transform:translateY(-50%);
     background:var(--arancio); color:var(--bianco); border:none;
-    border-radius:8px; padding:8px 16px; font-size:13px; font-weight:700;
+    border-radius:8px; padding:8px 16px; font-size:14px; font-weight:700;
     cursor:pointer; transition:background 0.2s; white-space:nowrap;
   }
   .cf-btn:hover { background:var(--arancio-scuro); }
   .cf-btn:disabled { opacity:0.6; cursor:not-allowed; }
 
-  .alert { border-radius:var(--raggio-sm); padding:12px 16px; font-size:14px; margin-bottom:18px; line-height:1.5; display:none; }
+  .alert { border-radius:var(--raggio-sm); padding:13px 16px; font-size:15px; margin-bottom:18px; line-height:1.5; display:none; }
   .alert.show-info    { display:block; background:var(--blu-pallido); color:var(--blu-scuro); border-left:4px solid var(--blu); }
   .alert.show-success { display:block; background:#E8F5E9; color:var(--verde); border-left:4px solid var(--verde); }
   .alert.show-error   { display:block; background:#FFEBEE; color:var(--rosso); border-left:4px solid var(--rosso); }
 
-  .sezione-label { font-family:'Nunito',sans-serif; font-weight:800; font-size:15px; color:var(--blu-scuro); margin:22px 0 14px; padding-bottom:8px; border-bottom:2px solid var(--blu-pallido); display:flex; align-items:center; gap:8px; }
-  .sezione-icona { width:26px; height:26px; background:var(--blu); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--bianco); font-size:13px; font-weight:900; flex-shrink:0; }
+  .sezione-label { font-family:'Nunito',sans-serif; font-weight:800; font-size:16px; color:var(--blu-scuro); margin:22px 0 14px; padding-bottom:8px; border-bottom:2px solid var(--blu-pallido); display:flex; align-items:center; gap:8px; }
+  .sezione-icona { width:28px; height:28px; background:var(--blu); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--bianco); font-size:14px; font-weight:900; flex-shrink:0; }
 
-  .clausola { background:var(--grigio); border:2px solid var(--grigio-bordo); border-radius:var(--raggio-sm); padding:16px; margin-bottom:14px; transition:border-color 0.2s, background 0.2s; }
+  .clausola { background:var(--grigio); border:2px solid var(--grigio-bordo); border-radius:var(--raggio-sm); padding:18px; margin-bottom:14px; transition:border-color 0.2s, background 0.2s; }
   .clausola.accettata { border-color:var(--verde); background:#f1f8f2; }
-  .clausola-testo { font-size:13px; line-height:1.6; color:var(--testo); margin-bottom:12px; }
+  .clausola-testo { font-size:14px; line-height:1.7; color:var(--testo); margin-bottom:14px; }
   .clausola-testo a { color:var(--blu); }
-  .clausola-testo strong { display:block; margin-bottom:6px; font-size:14px; }
+  .clausola-testo strong { display:block; margin-bottom:6px; font-size:15px; }
   .check-wrap { display:flex; align-items:flex-start; gap:10px; cursor:pointer; }
-  .check-wrap input[type="checkbox"] { width:20px; height:20px; min-width:20px; accent-color:var(--blu); cursor:pointer; margin-top:1px; }
-  .check-wrap span { font-size:14px; font-weight:600; line-height:1.4; }
+  .check-wrap input[type="checkbox"] { width:20px; height:20px; min-width:20px; accent-color:var(--blu); cursor:pointer; margin-top:2px; }
+  .check-wrap span { font-size:15px; font-weight:600; line-height:1.4; }
 
   .radio-group { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
-  .radio-opt { display:flex; align-items:flex-start; gap:10px; background:var(--grigio); border:2px solid var(--grigio-bordo); border-radius:var(--raggio-sm); padding:12px 14px; cursor:pointer; transition:border-color 0.2s; }
+  .radio-opt { display:flex; align-items:flex-start; gap:10px; background:var(--grigio); border:2px solid var(--grigio-bordo); border-radius:var(--raggio-sm); padding:13px 14px; cursor:pointer; transition:border-color 0.2s; }
   .radio-opt:hover { border-color:var(--blu-chiaro); }
   .radio-opt input[type="radio"] { width:18px; height:18px; min-width:18px; accent-color:var(--blu); margin-top:2px; }
-  .radio-opt span { font-size:13px; line-height:1.4; }
+  .radio-opt span { font-size:14px; line-height:1.4; }
 
   .toggle-g2 { display:flex; align-items:center; gap:10px; margin:18px 0 14px; cursor:pointer; }
   .toggle-g2 input { accent-color:var(--blu); width:18px; height:18px; }
-  .toggle-g2 span { font-size:14px; font-weight:600; }
+  .toggle-g2 span { font-size:15px; font-weight:600; }
 
   .firma-wrap { margin-top:18px; }
-  .firma-label { font-size:12px; font-weight:700; color:var(--testo-sec); text-transform:uppercase; letter-spacing:0.4px; margin-bottom:6px; }
+  .firma-label { font-size:13px; font-weight:700; color:var(--testo-sec); text-transform:uppercase; letter-spacing:0.4px; margin-bottom:6px; }
   .firma-canvas-wrap { border:2px solid var(--grigio-bordo); border-radius:var(--raggio-sm); background:var(--bianco); position:relative; touch-action:none; }
   .firma-canvas-wrap canvas { display:block; width:100%; height:150px; cursor:crosshair; border-radius:calc(var(--raggio-sm) - 2px); }
-  .firma-placeholder { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:14px; color:#ccc; pointer-events:none; transition:opacity 0.2s; }
-  .firma-cancella { margin-top:6px; background:none; border:1px solid var(--grigio-bordo); border-radius:6px; padding:5px 12px; font-size:12px; color:var(--testo-sec); cursor:pointer; }
+  .firma-placeholder { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:15px; color:#ccc; pointer-events:none; transition:opacity 0.2s; }
+  .firma-cancella { margin-top:6px; background:none; border:1px solid var(--grigio-bordo); border-radius:6px; padding:6px 14px; font-size:13px; color:var(--testo-sec); cursor:pointer; }
   .firma-cancella:hover { border-color:var(--rosso); color:var(--rosso); }
-  .firma-nota { font-size:11px; color:var(--testo-sec); line-height:1.5; margin-top:8px; font-style:italic; }
+  .firma-nota { font-size:12px; color:var(--testo-sec); line-height:1.6; margin-top:10px; font-style:italic; }
 
   .btn-wrap { display:flex; justify-content:space-between; align-items:center; margin-top:24px; gap:10px; }
-  .btn { padding:13px 28px; border-radius:var(--raggio-sm); font-size:15px; font-weight:700; font-family:'Nunito',sans-serif; cursor:pointer; border:none; transition:all 0.2s; }
+  .btn { padding:14px 28px; border-radius:var(--raggio-sm); font-size:16px; font-weight:700; font-family:'Nunito',sans-serif; cursor:pointer; border:none; transition:all 0.2s; }
   .btn-primario { background:var(--arancio); color:var(--bianco); flex:1; max-width:260px; }
   .btn-primario:hover { background:var(--arancio-scuro); transform:translateY(-1px); box-shadow:0 4px 14px rgba(255,132,39,0.35); }
   .btn-sec { background:var(--grigio); color:var(--testo-sec); border:2px solid var(--grigio-bordo); }
@@ -162,16 +163,16 @@
 
   .conferma-hero { text-align:center; padding:24px 0 20px; }
   .conferma-icona { width:72px; height:72px; background:linear-gradient(135deg,var(--verde),#43A047); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:32px; }
-  .conferma-hero h2 { font-family:'Nunito',sans-serif; font-size:24px; font-weight:900; color:var(--verde); margin-bottom:8px; }
-  .conferma-hero p { font-size:14px; color:var(--testo-sec); line-height:1.6; }
+  .conferma-hero h2 { font-family:'Nunito',sans-serif; font-size:26px; font-weight:900; color:var(--verde); margin-bottom:8px; }
+  .conferma-hero p { font-size:15px; color:var(--testo-sec); line-height:1.6; }
   .info-box { background:var(--grigio); border-radius:var(--raggio-sm); padding:18px; margin-top:16px; }
-  .info-box h3 { font-family:'Nunito',sans-serif; font-weight:800; font-size:14px; color:var(--testo); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.4px; }
-  .info-box p, .info-box li { font-size:13px; color:var(--testo-sec); line-height:1.6; }
+  .info-box h3 { font-family:'Nunito',sans-serif; font-weight:800; font-size:15px; color:var(--testo); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.4px; }
+  .info-box p, .info-box li { font-size:14px; color:var(--testo-sec); line-height:1.6; }
   .info-box ul { padding-left:16px; margin-top:6px; }
   .info-box strong { color:var(--testo); }
   .info-box a { color:var(--blu); font-weight:600; }
-  .iban-box { background:var(--blu-pallido); border-radius:8px; padding:12px 16px; margin-top:8px; font-size:13px; }
-  .iban-box strong { display:block; color:var(--blu-scuro); font-size:11px; text-transform:uppercase; margin-bottom:2px; margin-top:6px; }
+  .iban-box { background:var(--blu-pallido); border-radius:8px; padding:12px 16px; margin-top:8px; font-size:14px; }
+  .iban-box strong { display:block; color:var(--blu-scuro); font-size:12px; text-transform:uppercase; margin-bottom:2px; margin-top:6px; }
   .iban-box strong:first-child { margin-top:0; }
 
   @media (max-width:480px) {
@@ -223,7 +224,7 @@
       <div class="slot"><span class="ora">12.30 – 13.00</span><span>Uscita</span></div>
       <p class="nota-evento">Nella settimana sono previste uscite presso gli impianti sportivi di Castellucchio e/o il Parco Bersaglio. Si consiglia abbigliamento comodo.</p>
     </div>
-    <p style="font-size:14px;color:var(--testo-sec);line-height:1.6;margin-bottom:22px;">
+    <p style="font-size:15px;color:var(--testo-sec);line-height:1.6;margin-bottom:22px;">
       Compila il modulo per iscrivere tuo/a figlio/a allo Special Grest 2026. Ti chiederemo il codice fiscale del/la partecipante per verificare se sono già presenti dati nel nostro archivio.
     </p>
     <div class="btn-wrap" style="justify-content:flex-end;">
@@ -413,7 +414,7 @@
     <div class="clausola" id="cl3">
       <div class="clausola-testo">
         <strong>Informativa ai fini privacy e riservatezza</strong>
-        Dichiariamo di aver letto l'<a href="https://az-ph.com/wp-content/uploads/2025/04/ANSPI-_-informativa-privacy.pdf" target="_blank">Informativa ai fini privacy</a> secondo quanto previsto dal Regolamento UE 679/2016.
+        Dichiariamo di aver letto l'<a href="ANSPI-_-informativa-privacy.pdf" target="_blank">Informativa ai fini privacy</a> secondo quanto previsto dal Regolamento UE 679/2016.
       </div>
       <label class="check-wrap">
         <input type="checkbox" id="chkPrivacy" onchange="aggiornaCl('cl3',this)">
@@ -500,7 +501,7 @@
             <strong>IBAN</strong>IT40P0834057560000000360432
             <strong>Causale</strong><span id="causaleConferma"></span>
           </div>
-          <p style="margin-top:6px;font-size:12px;">Puoi bonificare insieme la quota di iscrizione e il costo del tesseramento ANSPI.</p>
+          <p style="margin-top:6px;font-size:13px;">Puoi bonificare insieme la quota di iscrizione e il costo del tesseramento ANSPI.</p>
         </li>
         <li style="margin-top:8px;"><strong>In contanti</strong> il primo giorno di attività</li>
       </ul>
@@ -510,7 +511,7 @@
       <p>Per partecipare è necessario essere tesserati ANSPI. Se non l'hai ancora fatto, puoi richiedere la tessera compilando il <a href="https://tally.so/r/WOR6ve" target="_blank">modulo di tesseramento</a>.</p>
     </div>
     <div class="info-box" style="text-align:center;">
-      <p style="font-size:12px;">Per informazioni: <a href="mailto:oratoriocastellucchio5@gmail.com">oratoriocastellucchio5@gmail.com</a><br>Tel. 0376 438106 &nbsp;|&nbsp; Via Roma 29, Castellucchio MN</p>
+      <p style="font-size:13px;">Per informazioni: <a href="mailto:oratoriocastellucchio5@gmail.com">oratoriocastellucchio5@gmail.com</a><br>Tel. 0376 438106 &nbsp;|&nbsp; Via Roma 29, Castellucchio MN</p>
     </div>
   </div>
 
@@ -560,7 +561,6 @@ async function cercaCF() {
 }
 
 function precompila(d) {
-  console.log("dataNasc ricevuta:", d.dataNasc, typeof d.dataNasc);
   const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
   set("cognome",d.cognome); set("nome",d.nome); set("luogoNasc",d.luogoNasc);
   set("indirizzo",d.indirizzo); set("localita",d.localita); set("cap",d.cap);
@@ -568,12 +568,11 @@ function precompila(d) {
   set("cognomeG1",d.cognomeG1); set("nomeG1",d.nomeG1); set("cellG1",d.cellG1);
   set("email",d.email); set("cognomeG2",d.cognomeG2); set("nomeG2",d.nomeG2); set("cellG2",d.cellG2);
 
-  // Data nascita: gestisce dd/mm/yyyy, d/m/yyyy, yyyy-mm-dd
   if (d.dataNasc) {
     const s = d.dataNasc.toString().trim();
     let gg, mm, aa;
     const m1 = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-    const m2 = s.match(/^(\d{4})-(\d{2})-(\d{2})/); // gestisce anche ISO con orario
+    const m2 = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
     if (m1) { gg = m1[1].padStart(2,"0"); mm = m1[2].padStart(2,"0"); aa = m1[3]; }
     else if (m2) { gg = m2[3]; mm = m2[2]; aa = m2[1]; }
     if (gg) {
